@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	xmlns:app="http://schemas.android.com/apk/res-auto">
+
+	<FrameLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		tools:context=".fragments.StudentFragment">
+
+		<TextView
+			android:id="@+id/tv_error"
+			android:layout_width="wrap_content"
+			android:layout_gravity="center"
+			android:text="Data Not Found"
+			android:visibility="gone"
+			android:layout_height="wrap_content"/>
+
+		<com.google.android.material.progressindicator.CircularProgressIndicator
+			android:id="@+id/progress_circular"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center"
+			app:indicatorColor="@color/colorPrimary"
+			app:trackThickness="5sp"
+			android:visibility="visible"
+			/>
+
+		<androidx.recyclerview.widget.RecyclerView
+			android:id="@+id/rv_students"
+			android:layout_margin="15dp"
+			android:visibility="visible"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"/>
+
+
+		<com.google.android.material.floatingactionbutton.FloatingActionButton
+			android:id="@+id/student_fab_btn"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:baselineAlignBottom="true"
+			android:layout_marginBottom="15dp"
+			app:backgroundTint="@color/colorPrimary"
+			android:src="@drawable/ic_add"
+			android:layout_marginRight="15dp"
+			android:layout_gravity="end|bottom"
+
+			/>
+
+	</FrameLayout>
+
+</layout>
