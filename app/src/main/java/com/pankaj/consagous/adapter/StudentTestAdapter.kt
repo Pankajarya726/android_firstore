@@ -8,6 +8,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.pankaj.consagous.R
 import com.pankaj.consagous.data_class.StudentTest
+import java.math.RoundingMode
+import java.text.DecimalFormat
 
 class StudentTestAdapter(val testList: ArrayList<StudentTest>, val context: Context) :
     RecyclerView.Adapter<StudentTestAdapter.ViewHolder>() {
@@ -35,7 +37,13 @@ class StudentTestAdapter(val testList: ArrayList<StudentTest>, val context: Cont
         holder.tvSubject.text = "Subject : "+test.subject
         holder.tvTotalMarks.text = "Maximum mark : "+test.maxMark.toString()
         holder.tvTopic.text = "Topic : "+test.topic
-        holder.tvMarkObtained.text = "Mark Obtained : "+test.markObtained.toString() +"%"
+
+
+        val v  = (test.markObtained.toFloat() * 100)/ test.maxMark.toFloat()
+        val df = DecimalFormat("#.##")
+        df.roundingMode = RoundingMode.DOWN
+        val roundoff = df.format(v)
+        holder.tvMarkObtained.text = "Mark Obtained : "+roundoff.toString() +"%"
     }
 
     override fun getItemCount(): Int {

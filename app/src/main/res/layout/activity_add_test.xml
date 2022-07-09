@@ -88,7 +88,8 @@
 			android:layout_marginHorizontal="15dp"
 			android:layout_marginTop="5dp"
 			android:inputType="date"
-
+			android:clickable="true"
+			android:focusable="false"
 			android:hint="@string/enter_subject"
 			android:background="@drawable/rounded_input_field" />
 

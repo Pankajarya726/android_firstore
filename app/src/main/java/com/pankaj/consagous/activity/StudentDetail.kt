@@ -36,6 +36,10 @@ class StudentDetail : AppCompatActivity() {
         binding.indicator.visibility = View.VISIBLE
         getStudentDetail(rollNo)
         Log.e(javaClass.simpleName, "subject-->$tests");
+        binding.imgBack.setOnClickListener(View.OnClickListener {
+
+            finish()
+        })
 
     }
 
@@ -44,6 +48,8 @@ class StudentDetail : AppCompatActivity() {
         binding.rvStudentTest.layoutManager = LinearLayoutManager(this)
         adapter = StudentTestAdapter(testList = tests,this)
         binding.rvStudentTest.adapter = adapter
+
+
     }
 
     private fun getStudentDetail(rollNo: Int) {
@@ -76,6 +82,7 @@ class StudentDetail : AppCompatActivity() {
                             it.documents[0]["topic"].toString(),
                             Integer.parseInt(it.documents[0]["max_mark"].toString()),
                             Integer.parseInt(document["mark_obtained"].toString()),
+                            document.id
                             ))
                         Log.e(javaClass.simpleName, "subject-->" + it.documents[0]["subject"]);
 

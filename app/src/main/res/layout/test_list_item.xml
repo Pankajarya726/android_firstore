@@ -3,7 +3,7 @@
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
-
+android:id="@+id/card_view"
 	app:cardCornerRadius="10dp"
 	android:layout_marginTop="10dp"
 	android:layout_marginBottom="2dp"
@@ -52,19 +52,28 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_below="@+id/tv_test_no"
-			android:layout_toRightOf="@+id/tv_subject"
+			android:layout_alignParentRight="true"
 			android:layout_marginTop="5sp"
-			android:text="(Integration)"
+			android:text="Integration"
 			android:textColor="#000000" />
 
 		<TextView
-			android:id="@+id/tv_marks"
+			android:id="@+id/tv_class"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_below="@+id/tv_subject"
 			android:layout_alignParentLeft="true"
 			android:layout_marginTop="5sp"
-			android:text="class : 10th"
+			android:text="12th"
+			android:textColor="#000000" />
+		<TextView
+			android:id="@+id/tv_marks"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_below="@+id/tv_subject"
+			android:layout_alignParentRight="true"
+			android:layout_marginTop="5sp"
+			android:text="100"
 			android:textColor="#000000" />
 
 	</RelativeLayout>

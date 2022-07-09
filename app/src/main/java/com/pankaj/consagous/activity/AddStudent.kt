@@ -58,7 +58,7 @@ class AddStudent : AppCompatActivity() {
             val mFirestore = FirebaseFirestore.getInstance()
             mFirestore.firestoreSettings = FirebaseFirestoreSettings.Builder().build()
 
-            FirebaseUtils().fireStoreDatabase.collection("student_db")
+            FirebaseUtils().fireStoreDatabase.collection("students")
                 .add(hashMap)
                 .addOnSuccessListener {
                     Toast.makeText(this,"Student added successfully",Toast.LENGTH_LONG).show()

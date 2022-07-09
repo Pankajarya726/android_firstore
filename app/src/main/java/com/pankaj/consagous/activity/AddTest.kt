@@ -1,8 +1,10 @@
 package com.pankaj.consagous.activity
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.DatePicker
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -11,7 +13,9 @@ import com.google.firebase.firestore.FirebaseFirestoreSettings
 import com.pankaj.consagous.R
 import com.pankaj.consagous.databinding.ActivityAddTestBinding
 import com.pankaj.consagous.utils.FirebaseUtils
+import java.util.*
 import java.util.concurrent.TimeUnit
+import kotlin.collections.ArrayList
 
 class AddTest : AppCompatActivity() {
     private var student = ArrayList<Int>()
@@ -19,16 +23,42 @@ class AddTest : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_test)
-        binding.edtDate.setOnClickListener(View.OnClickListener {
-        })
+
+
+        val mcurrentTime = Calendar.getInstance()
+        val year = mcurrentTime.get(Calendar.YEAR)
+        val month = mcurrentTime.get(Calendar.MONTH)
+        val day = mcurrentTime.get(Calendar.DAY_OF_MONTH)
+
+        val datePicker = DatePickerDialog(this,
+
+            { view, year, month, dayOfMonth ->
+                binding.edtDate.setText(
+                    String.format("%d-%d-%d", dayOfMonth, month + 1, year)
+                )
+            }, year, month, day
+        );
+
+
+        binding.edtDate.setOnClickListener {
+            datePicker.show()
+        }
+
+
         binding.btnAdd.setOnClickListener(View.OnClickListener {
             addTest()
         })
 
+        binding.imgBack.setOnClickListener(
+            View.OnClickListener {
+                finish()
+            }
+        )
+
     }
 
     private fun init() {
-        FirebaseUtils().fireStoreDatabase.collection("student_db")
+        FirebaseUtils().fireStoreDatabase.collection("students")
             .get()
             .addOnSuccessListener { result ->
 
@@ -90,7 +120,8 @@ class AddTest : AppCompatActivity() {
                     addStudentInTest(it.id, timeStamp, classs);
                 }
                 .addOnFailureListener { exception ->
-                    Toast.makeText(this, "Error : ${exception.toString()}", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "Error : ${exception.toString()}", Toast.LENGTH_LONG)
+                        .show()
                     Log.w(javaClass.simpleName, "Error adding document $exception")
                 }
 
@@ -100,8 +131,8 @@ class AddTest : AppCompatActivity() {
     }
 
     private fun addStudentInTest(id: String, timeStamp: Long, classs: String) {
-        FirebaseUtils().fireStoreDatabase.collection("student_db").whereEqualTo("class", classs).get().addOnSuccessListener {
-                result ->
+        FirebaseUtils().fireStoreDatabase.collection("students").whereEqualTo("class", classs)
+            .get().addOnSuccessListener { result ->
             for (document in result) {
                 Log.d("UserDownload", "${document.id} => ${document.data}")
                 student.add(

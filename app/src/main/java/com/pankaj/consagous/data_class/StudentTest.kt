@@ -10,6 +10,7 @@ data class StudentTest(
     val subject: String,
     val topic: String,
     val maxMark: Int,
-    val markObtained:Int
+    var markObtained:Int,
+    val testId:String
 
 )

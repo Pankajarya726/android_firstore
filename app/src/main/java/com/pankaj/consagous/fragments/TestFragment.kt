@@ -11,10 +11,13 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pankaj.consagous.R
 import com.pankaj.consagous.activity.AddTest
+import com.pankaj.consagous.activity.StudentDetail
+import com.pankaj.consagous.activity.TestDetail
 import com.pankaj.consagous.adapter.StudentListAdapter
 import com.pankaj.consagous.adapter.TestListAdapter
 import com.pankaj.consagous.data_class.Test
 import com.pankaj.consagous.databinding.FragmentTestBinding
+import com.pankaj.consagous.interfaces.TestItemClickListener
 import com.pankaj.consagous.utils.FirebaseUtils
 
 // TODO: Rename parameter arguments, choose names that match
@@ -27,7 +30,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [TestFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class TestFragment : Fragment() {
+class TestFragment : Fragment() , TestItemClickListener {
 
     private var param1: String? = null
     private var param2: String? = null
@@ -117,11 +120,16 @@ class TestFragment : Fragment() {
 
             val layoutManager = LinearLayoutManager(activity)
             binding.rvTest.layoutManager = layoutManager
-            adapter = TestListAdapter(testList, activity!!.applicationContext)
+            adapter = TestListAdapter(testList, requireActivity().applicationContext,this)
             binding.rvTest.adapter = adapter
             adapter!!.notifyDataSetChanged()
 
 
+        }else{
+            binding.progressCircular.visibility = View.GONE
+            binding.tvError.visibility = View.VISIBLE
+            binding.rvTest.visibility = View.GONE
+            binding.tvError.text = "Record not available"
         }
     }
 
@@ -135,5 +143,20 @@ class TestFragment : Fragment() {
         init()
 
         Log.e(javaClass.simpleName, " onResume---> ")
+    }
+
+    override fun onItemClick(test: Test) {
+
+
+        Log.e(javaClass.simpleName, "onItemClick-->$test")
+
+        val intent  = Intent(activity, TestDetail::class.java);
+        intent.putExtra("test_no",test.testNo);
+        intent.putExtra("subject",test.subject);
+        intent.putExtra("topic",test.topic);
+        intent.putExtra("max_mark",test.maxMark);
+        intent.putExtra("class",test.classs);
+        intent.putExtra("date",test.date);
+        startActivity(intent)
     }
 }

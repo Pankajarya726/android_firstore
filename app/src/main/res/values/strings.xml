@@ -28,4 +28,6 @@
 	<string name="date">Date</string>
 	<string name="data_not_found">Data Not Found</string>
 	<string name="description">description</string>
+    <string name="enter_marks">Enter marks</string>
+	<string name="update">Update</string>
 </resources>
